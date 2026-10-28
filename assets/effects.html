@@ -84,10 +84,11 @@ const FX={
    X.fillStyle=t>1.2?TH.accent:'#E4E1D8'; X.beginPath(); X.arc(910,615,38,0,7); X.fill(); X.restore();
    sh(40,16,0.2); X.fillStyle='#000'; rr(70,800,940,1000,40); X.fill(); nosh(); X.save(); rr(70,800,940,1000,40); X.clip(); cover(D.V,{x:70,y:800,w:940,h:1000},D.V?{x:0,y:D.V.naturalHeight*0.18,w:D.V.naturalWidth,h:D.V.naturalHeight*0.62}:null); X.restore();
    const w=D.w; if(t<1.0) line(w.slice(0,2),540,1640,64,'#fff',t,0.05,0.12); else line(w.slice(2).length?w.slice(2):w.slice(-1),540,1640,64,TH.accent,t,1.0,0.1); },
- frame_break(t,D){ X.save(); X.filter='blur(30px) brightness(0.55)'; cover(D.V,FULL); X.restore(); X.filter='none';
+ frame_break(t,D){ X.save(); X.filter='blur(30px) brightness(0.8) saturate(1.2)'; cover(D.V,FULL); X.restore(); X.filter='none';
    const k=eio(pr(t,0.05,0.5)), R={x:lerp(0,170,k),y:lerp(0,420,k),w:lerp(W,740,k),h:lerp(H,1316,k)};
    sh(50,20,0.4*k); X.fillStyle='#000'; rr(R.x,R.y,R.w,R.h,34*k); X.fill(); nosh();
    X.save(); rr(R.x,R.y,R.w,R.h,34*k); X.clip(); cover(D.V,R); X.restore();
+   X.save(); X.strokeStyle='rgba(255,255,255,'+(0.95*k)+')'; X.lineWidth=8; rr(R.x,R.y,R.w,R.h,34*k); X.stroke(); X.restore();
    const u=pr(t,0.4,0.6); X.save(); X.globalAlpha=u; X.fillStyle='#fff'; X.strokeStyle='#fff'; X.lineWidth=5;
    const ix=R.x+R.w-50; [0,1,2].forEach(i=>{ const y=R.y+R.h*0.62+i*86; X.beginPath(); X.arc(ix,y,18,0,7); X.stroke(); });
    avatarAt(R.x+50,R.y+R.h-120,22); word('@'+TH.handle,R.x+84,R.y+R.h-118,28,'#fff',1,{align:'left'});
@@ -206,12 +207,12 @@ const FX={
    let x=540-tot/2; const base=D.h.top+170; X.save(); X.beginPath(); X.rect(0,0,W,base+40); X.clip();
    [...wd].forEach((c,i)=>{ const k=eo(pr(t,0.04+i*0.08,0.42+i*0.08)); word(c,x+ws[i]/2,base+(1-k)*px,px,'#fff',pr(t,0.04+i*0.08,0.14+i*0.08)*0.96,{w:'700',shadow:false}); x+=ws[i]+20; }); X.restore();
    cover(D.M,FULL); X.restore(); },
- glass_type(t,D){ cover(D.V,FULL); const wd=(D.w[0]||'STUDIO').toUpperCase(), px=230, cy=D.h.top+120, a=pr(t,0,0.3);
+ glass_type(t,D){ cover(D.V,FULL); const wd=(D.w[0]||'STUDIO').toUpperCase(), px=240, cy=D.h.top-10, a=pr(t,0,0.3);
    X.save(); X.globalAlpha=a; X.translate(540,cy); X.transform(1,-0.06,0.12,1,0,0); X.translate(-540,-cy); X.font='700 '+px+'px HEN, Inter'; X.textAlign='center'; X.textBaseline='middle';
    for(let i=18;i>=1;i--){ X.fillStyle='rgba(190,220,255,'+(0.035+0.01*(18-i)/18)+')'; X.fillText(wd,540+i*1.6,cy+i*2.2); }
    X.save(); X.filter='blur(14px)'; X.globalAlpha=0.5*a; X.fillStyle='rgba(255,255,255,0.35)'; X.fillText(wd,540,cy); X.restore();
-   const g=X.createLinearGradient(0,cy-px/2,0,cy+px/2); g.addColorStop(0,'rgba(255,255,255,0.55)'); g.addColorStop(0.5,'rgba(220,235,255,0.18)'); g.addColorStop(1,'rgba(255,255,255,0.4)');
-   X.fillStyle=g; X.fillText(wd,540,cy); X.lineWidth=2.5; X.strokeStyle='rgba(255,255,255,0.75)'; X.strokeText(wd,540,cy);
+   const g=X.createLinearGradient(0,cy-px/2,0,cy+px/2); g.addColorStop(0,'rgba(255,255,255,0.85)'); g.addColorStop(0.5,'rgba(220,235,255,0.35)'); g.addColorStop(1,'rgba(255,255,255,0.7)');
+   X.fillStyle=g; X.fillText(wd,540,cy); X.lineWidth=4; X.strokeStyle='rgba(255,255,255,0.95)'; X.strokeText(wd,540,cy);
    const sx=lerp(-300,1400,eio(pr(t,0.3,1.4))); X.globalCompositeOperation='source-atop'; const sg=X.createLinearGradient(sx-120,0,sx+120,0); sg.addColorStop(0,'rgba(255,255,255,0)'); sg.addColorStop(0.5,'rgba(255,255,255,0.8)'); sg.addColorStop(1,'rgba(255,255,255,0)');
    X.fillStyle=sg; X.fillRect(0,cy-px,W,px*2); X.globalCompositeOperation='source-over'; X.restore();
    cover(D.M,FULL); }
